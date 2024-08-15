@@ -1,36 +1,37 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* box-shadow: 2px 3px 10px white; */
 }
-.container{
-    display: grid;
-    place-items: center;
-    height: 100vh;
-    
-}
-.box{
-    background-color: rgb(207, 221, 232);
-    width: 600px;
-    height: 90vh;
-    padding: 20px;
-    color: white;
-    position: absolute;
-    text-align: center;
-    box-shadow: 2px 3px 10px  rgb(124, 124, 165);
-}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    overflow: auto;
+}
+
+.box {
+    background-color: rgb(207, 221, 232);
+    width: 600px;
+    max-height: 90vh;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    box-shadow: 2px 3px 10px rgb(124, 124, 165);
+    border-radius: 10px;
+    overflow-y: auto;
 }
 
 h1 {
     color: #333;
-}
-
-p {
-    color: #393737;
+    margin-bottom: 20px;
 }
 
 button {
@@ -41,27 +42,22 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    align-items: center;
-    margin-top:auto;
-    margin-bottom:auto;
+    margin-top: 20px;
 }
 
 button:hover {
     background-color: #2d0b94;
 }
 
-.subject_box{
+.subject-boxes {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
+    flex-direction: column;
     color: black;
+    margin-bottom: 20px;
 }
 
-#addSubject{
-    margin-top: 20px;
-}
-input,select {
+input,
+select {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
@@ -73,44 +69,37 @@ input,select {
     width: 35%;
 }
 
-.subject-boxes{
-    display: flex;
-    flex-direction: column;
-    color: black;
-}
-
-.response{
+.response {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 15px;
     font-size: 3vh;
     text-align: center;
 }
 
-p{
+p#answer {
     margin-top: 2rem;
 }
 
-#calculate{
-    margin-left:auto;
-    margin-right:auto;
+#calculate {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.remove{
+.remove {
     border-radius: 50%;
     color: rgb(72, 49, 187);
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-    background-repeat:no-repeat ;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
 }
 
-.remove:hover{
-    border-radius: 50%;
-    color:white;
+.remove:hover {
+    color: white;
     background-color: #1d4fb3;
-    margin-left: auto;
-    margin-right: auto;
-    background-repeat:no-repeat ;
 }
