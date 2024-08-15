@@ -1,92 +1,126 @@
-
-object ={
-    id:0,
+let object = {
+    id: 0
 };
 
-const button = document.getElementById('addSubject');
+const buttonAddSubject = document.getElementById('addSubject');
+const buttonCalculate = document.getElementById('calculate');
 
-button.addEventListener('click', () => {
+buttonAddSubject.addEventListener('click', () => {
+    addSubjectBox();
+    refreshSemesterNumbers();
+});
 
+buttonCalculate.addEventListener('click', (e) => {
+    e.preventDefault();
+    calculateCGPA();
+});
+
+function addSubjectBox() {
     const maindiv = document.querySelector('.subject-boxes');
-
-    const subject_box = document.createElement("div");
+    const subjectBox = document.createElement("div");
     
-    object.id+=1
-    const id=object.id;
+    object.id += 1;
+    const id = object.id;
+    subjectBox.classList.add('subject-box');
+    subjectBox.id = `subject_box-${id}`;
 
-    subject_box.id=`subject_box-${id}`;
+    // Semester label
+    const semesterLabel = document.createElement('span');
+    semesterLabel.classList.add('semester-label');
+    semesterLabel.innerText = `Semester ${id}:`;
+    subjectBox.appendChild(semesterLabel);
 
-    subject_box.innerHTML += `Semester ${id}:`; 
-    
-    const newgpa = document.createElement('input');
-    newgpa.setAttribute('type', 'number');
-    newgpa.setAttribute('name', 'cgpa');
-    newgpa.setAttribute('id', `cgpa-${id}`);
-    newgpa.setAttribute('placeholder', 'CGPA');
-    
+    // CGPA input box
+    const newGpa = document.createElement('input');
+    newGpa.setAttribute('type', 'number');
+    newGpa.setAttribute('name', 'cgpa');
+    newGpa.setAttribute('id', `cgpa-${id}`);
+    newGpa.setAttribute('placeholder', 'CGPA');
+    subjectBox.appendChild(newGpa);
+
+    // Credit input box
     const newTextbox = document.createElement('input');
     newTextbox.setAttribute('type', 'number');
     newTextbox.setAttribute('name', 'credit');
     newTextbox.setAttribute('id', `credits-${id}`);
     newTextbox.setAttribute('placeholder', 'Credits');
+    subjectBox.appendChild(newTextbox);
 
-    var x = document.createElement("BUTTON");
-    x.classList.add("remove");
-    x.id=`remove-${id}`;
-    x.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    // Remove button
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("remove");
+    removeButton.id = `remove-${id}`;
+    removeButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    subjectBox.appendChild(removeButton);
 
-    
-    subject_box.appendChild(newgpa);
-    subject_box.appendChild(newTextbox);
-    subject_box.append(x);
-    maindiv.appendChild(subject_box);
+    maindiv.appendChild(subjectBox);
 
+    // Add event listener to remove button
+    removeButton.addEventListener('click', () => {
+        subjectBox.remove();
+        refreshSemesterNumbers();
+    });
+}
 
-    const button3 = document.getElementById(`remove-${id}`);
-    const divToRemove = document.getElementById(`subject_box-${id}`);
+function refreshSemesterNumbers() {
+    const subjectBoxes = document.querySelectorAll('.subject-box');
+    subjectBoxes.forEach((box, index) => {
+        const label = box.querySelector('.semester-label');
+        label.innerText = `Semester ${index + 1}:`;
+        // Adjust IDs for input and select elements
+        const gpaBox = box.querySelector('input[name="cgpa"]');
+        const creditBox = box.querySelector('input[name="credit"]');
+        const removeButton = box.querySelector('button.remove');
 
-    button3.addEventListener('click', () => {
-        divToRemove.remove();
-        });
-});
+        gpaBox.id = `cgpa-${index + 1}`;
+        creditBox.id = `credits-${index + 1}`;
+        removeButton.id = `remove-${index + 1}`;
+    });
+    object.id = subjectBoxes.length;
+}
 
+function calculateCGPA() {
+    let totalCredits = 0;
+    let totalGpa = 0;
+    let cgpa = 0;
 
-const button2 = document.getElementById('calculate');
-
-button2.addEventListener('click', (e) => {
-    e.preventDefault();
-    let total_credits=0;
-    let total_gpa=0;
-    let cgpa=0;
-
-    for(let i=1;i<=object.id;i++){
-        cred=parseFloat(document.getElementById(`credits-${i}`).value);
-        if (isNaN(cred))
-            {
-                
+    for (let i = 1; i <= object.id; i++) {
+        const creditBox = document.getElementById(`credits-${i}`);
+        const gpaBox = document.getElementById(`cgpa-${i}`);
+        
+        if (creditBox && gpaBox) {
+            const cred = parseFloat(creditBox.value);
+            if (isNaN(cred)) {
                 Swal.fire({
-                    title: "Pruthvi's calculator says",
-                    text: 'Field is blank',
+                    title: "Error",
+                    text: 'Please fill in all credit fields',
                     confirmButtonText: 'OK'
                 });
                 return false;
             }
-        total_credits+=cred;
-        gpa=parseFloat(document.getElementById(`cgpa-${i}`).value);
-        if (isNaN(cred))
-            {
-                
+            totalCredits += cred;
+            const gpa = parseFloat(gpaBox.value);
+            if (isNaN(gpa)) {
                 Swal.fire({
-                    title: "Pruthvi's calculator says",
-                    text: 'Field is blank',
+                    title: "Error",
+                    text: 'Please fill in all GPA fields',
                     confirmButtonText: 'OK'
                 });
                 return false;
             }
-        total_gpa+=gpa*cred;
+            totalGpa += gpa * cred;
+        }
     }
 
-    cgpa=(total_gpa/total_credits).toFixed(4);
-    document.getElementById('answer').innerHTML=`Your CGPA is ${cgpa}`;
-    
-});
+    if (totalCredits === 0) {
+        Swal.fire({
+            title: "Error",
+            text: 'Total credits cannot be zero',
+            confirmButtonText: 'OK'
+        });
+        return false;
+    }
+
+    cgpa = (totalGpa / totalCredits).toFixed(4);
+    document.getElementById('answer').innerHTML = `Your CGPA is ${cgpa}`;
+}
