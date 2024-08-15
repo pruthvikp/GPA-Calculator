@@ -28,7 +28,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(77, 76, 76, 0.4); /* Semi-transparent white background */
+            background: rgba(77, 76, 76, 0.4); 
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
@@ -44,27 +44,52 @@
             margin-bottom: 20px;
         }
 
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .buttons button {
-            background-color: #e7e6e6eb; /* Coral color */
+        button {
+            background-color: #e7e6e6eb; 
             color: #000000;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
             margin-bottom: 10px;
+            margin-top: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 16px;
         }
 
-        .buttons button:hover {
-            background-color: #969696eb; /* Slightly darker coral */
+        button:hover {
+            background-color: #969696eb; 
         }
+
+        #gpa-calculator-dropdown {
+            -webkit-appearance: none; 
+            -moz-appearance: none; 
+            appearance: none; 
+            background-color: #e7e6e6eb; 
+            color: #ffffff; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background: none; 
+        }
+
+        .dropdown {
+            position: relative; 
+            margin-bottom: 20px;
+        }
+
+        #gpa-calculator-dropdown:hover {
+            background-color: #969696eb; 
+        }
+
+        #gpa-calculator-dropdown option {
+            background-color: #969696eb; 
+            color: white; 
+        }
+
     </style>
 </head>
 
@@ -74,10 +99,28 @@
             <h1>GPA CALCULATOR</h1>
         </div>
 
-        <div class="buttons">
-            <button onclick="window.location='SGPA Calculator/sgpa.html'">SGPA CALCULATOR</button>
-            <button onclick="window.location='CGPA Calculator/cgpa.html'">CGPA CALCULATOR</button>
+        <div class="dropdown">
+                
+            <select id="gpa-calculator-dropdown">
+                <option value="SGPA Calculator/sgpa.html">S</option>
+                <option value="CGPA Calculator/cgpa.html">C</option>
+            </select>
+            <label for="gpa-calculator-dropdown" style="color: white;">GPA Calculator</label>
         </div>
+
+        <button onclick="navigateToCalculator()">Navigate</button>
+    </div>
+
+    <script>
+        function navigateToCalculator() {
+            var dropdown = document.getElementById("gpa-calculator-dropdown");
+            var selectedValue = dropdown.value;
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        }
+    </script>
+       
     </div>
 </body>
 
