@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPA Calculator</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .container{
-            display: grid;
+
+        body {
+            background: url('book_image.webp') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            height: 100vh;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: rgba(77, 76, 76, 0.4); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            position: relative;
+            top: -30%; 
+        }
+
+        .heading h1 {
+            font-size: 24px;
+            color: #cdcdcd;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
             flex-direction: column;
+            width: 100%;
+        }
+
+        .buttons button {
+            background-color: #e7e6e6eb; /* Coral color */
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .buttons button:hover {
+            background-color: #969696eb; /* Slightly darker coral */
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="heading">
             <h1>GPA CALCULATOR</h1>
         </div>
-    
+
         <div class="buttons">
             <button onclick="window.location='SGPA Calculator/sgpa.html'">SGPA CALCULATOR</button>
             <button onclick="window.location='CGPA Calculator/cgpa.html'">CGPA CALCULATOR</button>
         </div>
     </div>
-    
-    
 </body>
+
 </html>
